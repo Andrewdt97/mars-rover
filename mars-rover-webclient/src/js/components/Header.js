@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
+import ImageSearch from "./ImageSearch"
 
 class Header extends Component {
     constructor() {
@@ -10,10 +11,14 @@ class Header extends Component {
 
     render() {
         return(
-            <h1>Welcome to the web client for Andrew Thomas's Mars Rover server</h1>
-            <div>
-                <ImageSearch />
-            </div>
+            <>
+                <div>
+                    <h1>Welcome to the web client for Andrew Thomas's Mars Rover server</h1>
+                </div>
+                <div>
+                    <ImageSearch />
+                </div>
+            </>
         );
     }
 }
