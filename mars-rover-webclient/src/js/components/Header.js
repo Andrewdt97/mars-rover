@@ -6,7 +6,15 @@ class Header extends Component {
     constructor() {
         super();
 
-        this.state = {};
+        this.state = {
+            images: {}
+        };
+    }
+
+    imageSearchCallback(results) {
+        this.setState({
+            images: results
+        });
     }
 
     render() {
@@ -16,7 +24,7 @@ class Header extends Component {
                     <h1>Welcome to the web client for Andrew Thomas's Mars Rover server</h1>
                 </div>
                 <div>
-                    <ImageSearch />
+                    <ImageSearch parentCallback={this.imageSearchCallback} />
                 </div>
             </>
         );
