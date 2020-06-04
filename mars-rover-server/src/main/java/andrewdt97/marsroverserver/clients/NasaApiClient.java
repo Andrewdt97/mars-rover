@@ -1,21 +1,15 @@
 package andrewdt97.marsroverserver.clients;
 
-import java.io.InputStream;
 import java.util.List;
-import java.util.logging.Logger;
-
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Feature;
 import javax.ws.rs.core.MediaType;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJsonProvider;
-import org.glassfish.jersey.logging.LoggingFeature;
-import org.glassfish.jersey.logging.LoggingFeature.Verbosity;
 import org.springframework.stereotype.Component;
 
 import andrewdt97.marsroverserver.beans.KeyValuePair;

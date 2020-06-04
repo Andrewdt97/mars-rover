@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.nio.file.Files;
 
 import javax.inject.Inject;
-import javax.websocket.server.PathParam;
-import javax.ws.rs.QueryParam;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

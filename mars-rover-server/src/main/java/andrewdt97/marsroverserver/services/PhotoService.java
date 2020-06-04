@@ -12,9 +12,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import andrewdt97.marsroverserver.beans.KeyValuePair;
@@ -32,7 +29,6 @@ public class PhotoService {
     private static final String CAMERA_PARAM_NAME = "camera";
     private static final String IMAGE_CACHE_PATH = "/tmp/";
     
-    private final Logger logger = LoggerFactory.getLogger( DateService.class );
     @Inject
     DateService dateService;
     
