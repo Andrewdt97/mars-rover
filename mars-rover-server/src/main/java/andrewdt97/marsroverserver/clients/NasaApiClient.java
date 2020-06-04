@@ -1,17 +1,21 @@
-package andrewdt97.marsroverserver;
+package andrewdt97.marsroverserver.clients;
 
+import java.io.InputStream;
 import java.util.List;
+import java.util.logging.Logger;
+
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Feature;
 import javax.ws.rs.core.MediaType;
 
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import org.glassfish.jersey.client.ClientConfig;
 import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJaxbJsonProvider;
 import org.glassfish.jersey.jackson.internal.jackson.jaxrs.json.JacksonJsonProvider;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.glassfish.jersey.logging.LoggingFeature;
+import org.glassfish.jersey.logging.LoggingFeature.Verbosity;
 import org.springframework.stereotype.Component;
 
 import andrewdt97.marsroverserver.beans.KeyValuePair;
@@ -27,7 +31,6 @@ public class NasaApiClient {
     private static final String NASA_URI_BASE = "https://api.nasa.gov/mars-photos/api/v1";
 	private static final String API_KEY_PARAM_NAME = "api_key";
 
-    private final Logger logger = LoggerFactory.getLogger( NasaApiClient.class );
 	private final JacksonJsonProvider jacksonJsonProvider =
         new JacksonJaxbJsonProvider().configure( DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false );
 
@@ -43,10 +46,10 @@ public class NasaApiClient {
         try {
 		    return System.getenv( "NASA_API_KEY" );
 	    } catch(NullPointerException e) {
-		    logger.error( "NASA_API_KEY not found in enviornment variables" );
+		    // logger.error( "NASA_API_KEY not found in enviornment variables" );
             throw e;
 	    } catch(SecurityException e) {
-		    logger.error( "NasaApiClient does not have persmission to access envriornment variables" );
+		    // logger.error( "NasaApiClient does not have persmission to access envriornment variables" );
             throw e;
 	    }
     }
@@ -94,6 +97,4 @@ public class NasaApiClient {
 			.request( MediaType.APPLICATION_JSON )
 			.get( RoverList.class );
 	}
-
-
 }

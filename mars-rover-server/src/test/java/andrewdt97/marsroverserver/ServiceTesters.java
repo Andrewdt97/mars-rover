@@ -1,5 +1,10 @@
 package andrewdt97.marsroverserver;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -22,7 +27,12 @@ import andrewdt97.marsroverserver.services.RoverService;
 public class ServiceTesters {
     private final String CURIOSITY_NAME = "Curiosity";
     private final String FHAZ_CAMERA = "FHAZ";
-    private final String FETCH_DATE = "2020-02-13"; 
+    private final String FETCH_DATE = "2020-02-13";
+    private final String HTTP_IMG_SRC = "http://mars.jpl.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/02071/opgs/edr/fcam/FLB_581357707EDR_F0701752FHAZ00337M_.JPG";
+    private final String HTTPS_IMG_SRC = "https://mars.jpl.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/02071/opgs/edr/fcam/FLB_581357707EDR_F0701752FHAZ00337M_.JPG";
+    private final String EXPECTED_CACHE_PATH = "/tmp/FLB_581357707EDR_F0701752FHAZ00337M_.JPG";
+    private final String DUMMY_SRC = "https:/dummy.JPG";
+    private final String DUMMY_PATH = "/tmp/dummy.JPG";
 
     @Inject
     AcceptanceTestService acceptanceTestService;
@@ -60,6 +70,7 @@ public class ServiceTesters {
 
     @Test
     public void testPhotoService() {
+        /*****Photo Lists*****/
         // Check all photos
         PhotoList photos = PhotoService.fetchPhotoList( CURIOSITY_NAME, FETCH_DATE, "all" );
 
@@ -74,6 +85,60 @@ public class ServiceTesters {
         Assertions.assertEquals( CURIOSITY_NAME, photos.getPhotos().get( 0 ).getRover().getName() );
         Assertions.assertEquals( FHAZ_CAMERA, photos.getPhotos().get( 0 ).getCamera().getName() );
         Assertions.assertEquals( FETCH_DATE, photos.getPhotos().get( 0 ).getEarthDate() );
+
+        /*****Get Photo*****/
+        File photo = null;
+        
+        // HTTP
+        try {
+            photo = PhotoService.getPhoto( HTTP_IMG_SRC );
+        } catch (IOException e) {
+            Assertions.fail("Exception" + e);
+        }
+        Assertions.assertNotNull( photo );
+
+        // Check cache storage
+        Assertions.assertTrue( Files.exists( Paths.get( EXPECTED_CACHE_PATH ) ) );
+
+        // Remove cache
+        try {
+            Files.deleteIfExists( Paths.get( EXPECTED_CACHE_PATH ) );
+        } catch (IOException e) {
+            Assertions.fail("Exception" + e);
+        }
+        Assertions.assertFalse( Files.exists( Paths.get( EXPECTED_CACHE_PATH ) ) );
+
+        // HTTPS
+        try {
+            photo = PhotoService.getPhoto( HTTPS_IMG_SRC );
+        } catch (IOException e) {
+            Assertions.fail("Exception" + e);
+        }
+        Assertions.assertNotNull( photo );
+
+        // Remove cache
+        try {
+            Files.deleteIfExists( Paths.get( EXPECTED_CACHE_PATH ) );
+        } catch (IOException e) {
+            Assertions.fail("Exception" + e);
+        }
+        Assertions.assertFalse( Files.exists( Paths.get( EXPECTED_CACHE_PATH ) ) );
+
+        // Check cache pull
+        File blankFile = new File( DUMMY_PATH );
+        try {
+            blankFile.createNewFile();
+        } catch (IOException e) {
+            Assertions.fail("Exception: " + e);
+        }
+        
+        try {
+            photo = PhotoService.getPhoto( DUMMY_SRC );
+        } catch (IOException e) {
+            Assertions.fail("Exception" + e);
+        }
+        Assertions.assertEquals( 0, photo.length() );
+
 
     }
 

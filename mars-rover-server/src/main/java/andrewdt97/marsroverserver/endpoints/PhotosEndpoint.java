@@ -1,7 +1,15 @@
 package andrewdt97.marsroverserver.endpoints;
 
-import javax.inject.Inject;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
 
+import javax.inject.Inject;
+import javax.websocket.server.PathParam;
+import javax.ws.rs.QueryParam;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +48,19 @@ public class PhotosEndpoint {
 		@RequestParam( "earth_date" ) String earthDate, 
 		@RequestParam String camera) {
 		return photoService.fetchPhotoList( rover, earthDate, camera );
+	}
+
+	@RequestMapping( value = "photo", method = RequestMethod.GET )
+	public ResponseEntity<byte[]> getImage( @RequestParam( "img_src" ) String imgSrc ) {
+		try {
+			File file = photoService.getPhoto( imgSrc );
+			return ResponseEntity.ok()
+				.contentType(MediaType.IMAGE_JPEG)
+				.body( Files.readAllBytes( file.toPath() ) );
+		} catch (IOException e) {
+			return ResponseEntity.status( 500 ).body( new byte[0] );
+		}
+		
 	}
 
 }

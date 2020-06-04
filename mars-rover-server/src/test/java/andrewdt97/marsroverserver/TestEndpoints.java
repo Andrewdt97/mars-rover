@@ -36,14 +36,23 @@ public class TestEndpoints {
 
     @Test
     public void testEndpoints() {
+        // Acceptance Test
         ResponseEntity<String> response = restTemplate.getForEntity( "http://localhost:" +  port + "/api/v1/acceptance_test", String.class );
         Assertions.assertEquals( HttpStatus.OK, response.getStatusCode() );
         
+        // Photo List
         response = restTemplate.getForEntity( "http://localhost:" +  port + 
             "/api/v1/curiosity/photos?earth_date=2020-02-14&camera=FHAZ", String.class );
         Assertions.assertEquals( HttpStatus.OK, response.getStatusCode() );
         
+        // Rover Information
         response = restTemplate.getForEntity( "http://localhost:" +  port + "/api/v1/rovers", String.class );
-		Assertions.assertEquals( HttpStatus.OK, response.getStatusCode() );
+        Assertions.assertEquals( HttpStatus.OK, response.getStatusCode() );
+        
+        // Photo
+        response = restTemplate.getForEntity( "http://localhost:" + port +
+            "/api/v1/photo?img_src=https://mars.jpl.nasa.gov/msl-raw-images/proj/msl/redops/ods/surface/sol/02071/opgs/edr/fcam/FLB_581357707EDR_F0701752FHAZ00337M_.JPG",
+             String.class );
+        Assertions.assertEquals( HttpStatus.OK, response.getStatusCode() );
     }
 }

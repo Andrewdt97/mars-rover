@@ -13,6 +13,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import andrewdt97.marsroverserver.beans.KeyValuePair;
 import andrewdt97.marsroverserver.beans.PhotoList;
 import andrewdt97.marsroverserver.beans.RoverList;
+import andrewdt97.marsroverserver.clients.NasaApiClient;
 
 @SpringBootTest
 public class NasaApiClientTester {

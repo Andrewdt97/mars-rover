@@ -4,8 +4,8 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Component;
 
-import andrewdt97.marsroverserver.NasaApiClient;
 import andrewdt97.marsroverserver.beans.RoverList;
+import andrewdt97.marsroverserver.clients.NasaApiClient;
 
 /**
  * @author andrewdt97
