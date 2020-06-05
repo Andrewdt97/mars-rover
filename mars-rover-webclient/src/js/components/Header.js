@@ -15,16 +15,12 @@ class Header extends Component {
             rover: roverSelect,
             earth_date: date,
             camera: camera,
-            key: 0,
         };
 
         this.imageSearchCallback = this.imageSearchCallback.bind(this);
     }
 
     imageSearchCallback(roverName, date, cameraSelect) {
-        const timestamp = Date.now();
-        console.log("Timestamp:");
-        console.log(timestamp);
         this.setState({
             rover: roverName,
             earth_date: date,

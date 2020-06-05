@@ -48,10 +48,10 @@ class ImageViwer extends Component {
         .then(
             (result) => {
                 console.log(result);
-                const maxPhotoIdx = result.photos.length -1;
+                const pLength = result.photos.length;
                 this.setState({
                     imageList: result.photos,
-                    maxImg: maxPhotoIdx,
+                    numPhotos: pLength,
                     imgIdx: 0,
                 });
                 this.fetchImage(this.state.imgIdx);
@@ -92,7 +92,7 @@ class ImageViwer extends Component {
         <>
             <img src={this.state.image}/>
             <br/>
-            <ImagePager imageList={this.state.imageList} maxImg={this.state.maxImg} currentImg={this.state.imgIdx} parentCallback={this.imagePagerCallback}/>
+            <ImagePager imageList={this.state.imageList} numPhotos={this.state.numPhotos} currentImg={this.state.imgIdx} parentCallback={this.imagePagerCallback}/>
         </>
         )}
 }

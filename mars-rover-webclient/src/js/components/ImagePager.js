@@ -11,14 +11,14 @@ class ImagePager extends Component {
     }
 
     fetchImageCallback(imgIdx) {
-        if (imgIdx < 0 || imgIdx > this.props.maxImg) {
+        if (imgIdx < 0 || imgIdx > this.props.numPhotos) {
             imgIdx = 0;
         }
         this.props.parentCallback(imgIdx);
     }
 
     handlePageLeft(event) {
-        var newIdx = (this.props.currentImg - 1) % this.props.maxImg;
+        var newIdx = (this.props.currentImg - 1) % this.props.numPhotos;
         this.setState({
             currentImg: newIdx
         });
@@ -26,7 +26,7 @@ class ImagePager extends Component {
     }
 
     handlePageRight(event) {
-        var newIdx = (this.props.currentImg + 1) % this.props.maxImg;
+        var newIdx = (this.props.currentImg + 1) % this.props.numPhotos;
         this.fetchImageCallback(newIdx);
     }
 
@@ -35,7 +35,7 @@ class ImagePager extends Component {
             <>
                 <button type="button" onClick={this.handlePageLeft}> &lt; </button>
                 <button type="button" onClick={this.handlePageRight}> &gt; </button>
-                <div>Image {this.props.currentImg + 1} of {this.props.maxImg + 1}</div>
+                <div>Image {this.props.currentImg + 1} of {this.props.numPhotos}</div>
             </>
         )
     }
