@@ -1,19 +1,36 @@
 import React, { Component } from "react";
 import ReactDOM from "react-dom";
 import ImageSearch from "./ImageSearch"
+import ImageViwer from "./ImageViwer";
 
 class Header extends Component {
     constructor() {
         super();
 
+        const qParams = new URLSearchParams(location.search);
+        const roverSelect = qParams.get('rover') || "curiosity";
+        const date = qParams.get("earth_date")  || "2020-06-03";
+        const camera = qParams.get("camera") || "NAVCAM"; 
         this.state = {
-            images: {}
+            rover: roverSelect,
+            earth_date: date,
+            camera: camera,
+            key: 0,
         };
+
+        this.imageSearchCallback = this.imageSearchCallback.bind(this);
     }
 
-    imageSearchCallback(results) {
+    imageSearchCallback(roverName, date, cameraSelect) {
+        const timestamp = Date.now();
+        console.log("Timestamp:");
+        console.log(timestamp);
         this.setState({
-            images: results
+            rover: roverName,
+            earth_date: date,
+            camera: cameraSelect,
+            key: timestamp,
+            time: timestamp,
         });
     }
 
@@ -25,6 +42,7 @@ class Header extends Component {
                 </div>
                 <div>
                     <ImageSearch parentCallback={this.imageSearchCallback} />
+                    <ImageViwer rover={this.state.rover} earth_date={this.state.earth_date} camera={this.state.camera} />
                 </div>
             </>
         );

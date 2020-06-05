@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import Select from "react-select";
 
 class ImageSearch extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             rovers : [
@@ -18,11 +17,12 @@ class ImageSearch extends Component {
 
         this.handleRoverSelectChange = this.handleRoverSelectChange.bind(this);
         this.handleDatePickerChange = this.handleDatePickerChange.bind(this);
+        this.handleCameraSelectChange = this.handleCameraSelectChange.bind(this);
         this.handleSubmitButtonPress = this.handleSubmitButtonPress.bind(this);
     }
 
-    searchResultsCallback(results) {
-        this.props.parentCallback(results)
+    searchResultsCallback() {
+        this.props.parentCallback(this.state.roverSelect, this.state.earth_date, this.state.cameraSelect)
     }
 
     componentDidMount() {
@@ -47,8 +47,9 @@ class ImageSearch extends Component {
                 error
             });
             }
-        )
+        );
     }
+
 
     extractRoverNames(roversJson) {
         var roverNames = [];
@@ -72,47 +73,29 @@ class ImageSearch extends Component {
         return cameraNames;
     }
 
-    handleRoverSelectChange(slectedEntry) {
-        const { selectedValue } = slectedEntry.value;
+    handleRoverSelectChange(selectedEntry) {
+        const selectedValue = selectedEntry.value;
         this.setState({
             roverSelect : selectedValue,
         });
     }
 
     handleDatePickerChange(event) {
-        const { newDate } = event.target.value;
+        const newDate = event.target.value;
         this.setState({
             earth_date : newDate
         });
     }
 
-    handleRoverSelectChange(slectedEntry) {
-        const { selectedValue } = slectedEntry.value;
+    handleCameraSelectChange(selectedEntry) {
+        const selectedValue = selectedEntry.value;
         this.setState({
             cameraSelect : selectedValue,
         });
     }
 
     handleSubmitButtonPress(event) {
-        var uri = "http://localhost:8080/api/v1/";
-        uri = uri.concat(this.state.roverSelect).concat("/photos");
-        var data = {
-            earth_date : this.state.earth_date,
-            camera : this.state.camera
-        };
-        fetch(uri, data)
-        .then(res => res.json())
-        .then(
-            (result) => {
-                this.searchResultsCallback(result);
-            },
-            (error) => {
-            this.setState({
-                isLoaded: true,
-                error
-            });
-            }
-        )
+        this.searchResultsCallback();
     }
 
     render() {
