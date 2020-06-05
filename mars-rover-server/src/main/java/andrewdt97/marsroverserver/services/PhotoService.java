@@ -68,7 +68,7 @@ public class PhotoService {
      * @return image file
      * @throws IOException
      */
-    public File getPhoto( String imgSrc ) throws IOException {
+    public File fetchPhoto( String imgSrc ) throws IOException {
         imgSrc = insureHttps( imgSrc );
         String fileName = imgSrc.substring( imgSrc.lastIndexOf( '/' ) + 1 );
         StringBuilder filePath = new StringBuilder( IMAGE_CACHE_PATH ).append( fileName );

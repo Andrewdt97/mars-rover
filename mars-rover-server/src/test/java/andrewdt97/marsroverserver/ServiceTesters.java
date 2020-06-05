@@ -90,7 +90,7 @@ public class ServiceTesters {
         
         // HTTP
         try {
-            photo = PhotoService.getPhoto( HTTP_IMG_SRC );
+            photo = PhotoService.fetchPhoto( HTTP_IMG_SRC );
         } catch (IOException e) {
             Assertions.fail("Exception" + e);
         }
@@ -109,7 +109,7 @@ public class ServiceTesters {
 
         // HTTPS
         try {
-            photo = PhotoService.getPhoto( HTTPS_IMG_SRC );
+            photo = PhotoService.fetchPhoto( HTTPS_IMG_SRC );
         } catch (IOException e) {
             Assertions.fail("Exception" + e);
         }
@@ -132,7 +132,7 @@ public class ServiceTesters {
         }
         
         try {
-            photo = PhotoService.getPhoto( DUMMY_SRC );
+            photo = PhotoService.fetchPhoto( DUMMY_SRC );
         } catch (IOException e) {
             Assertions.fail("Exception" + e);
         }

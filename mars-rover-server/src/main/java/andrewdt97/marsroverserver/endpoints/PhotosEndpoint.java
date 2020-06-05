@@ -51,7 +51,7 @@ public class PhotosEndpoint {
 	@RequestMapping( value = "photo", method = RequestMethod.GET )
 	public ResponseEntity<byte[]> getImage( @RequestParam( "img_src" ) String imgSrc ) {
 		try {
-			File file = photoService.getPhoto( imgSrc );
+			File file = photoService.fetchPhoto( imgSrc );
 			return ResponseEntity.ok()
 				.contentType(MediaType.IMAGE_JPEG)
 				.body( Files.readAllBytes( file.toPath() ) );

@@ -40,10 +40,8 @@ public class NasaApiClient {
         try {
 		    return System.getenv( "NASA_API_KEY" );
 	    } catch(NullPointerException e) {
-		    // logger.error( "NASA_API_KEY not found in enviornment variables" );
             throw e;
 	    } catch(SecurityException e) {
-		    // logger.error( "NasaApiClient does not have persmission to access envriornment variables" );
             throw e;
 	    }
     }
