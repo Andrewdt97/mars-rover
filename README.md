@@ -18,3 +18,19 @@ Hello and welcome to my repository for a client and server that interacts with N
 * Bonus - Unit Tests, Static Analysis, Performance tests or any other things you feel are important for Deﬁnition of Done
 * Double Bonus - Have the app display the image in a web browser
 * Triple Bonus – Have it run in a Docker or K8s (Preferable)
+
+## Solution
+
+For a more thourough overview of each component including install instructions, see the README within their respective folders.
+
+#### Server (./mars-rover-server)
+There is a backend, Springboot server with a number of REST API endpoints exposed. Namely:
+
+* *GET* which rovers have data availible : `api/v1/rovers`
+* *GET* list of photos matching search criteria : `api/v1/<rover_name>/photos?<earth_date>&<camera>`
+* *GET* image file from NASA's API : `api/v1/photo?<img_src>`
+
+By default, the server launches at `localhost:8080/`
+
+### Web Client (./mars-rover/webclient)
+On the front end, there is a React based single page application that polls the Springboot server for data. By default, the dev server launches at `localhost:8081/`.
