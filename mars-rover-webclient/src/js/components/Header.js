@@ -25,8 +25,6 @@ class Header extends Component {
             rover: roverName,
             earth_date: date,
             camera: cameraSelect,
-            key: timestamp,
-            time: timestamp,
         });
     }
 
